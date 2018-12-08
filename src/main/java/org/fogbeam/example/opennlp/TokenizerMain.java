@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.io.InputStreamReader;
 
 import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.tokenize.TokenizerME;
@@ -44,31 +45,18 @@ public class TokenizerMain
 		try
 		{
 			TokenizerModel model = new TokenizerModel( modelIn );
-		
 			Tokenizer tokenizer = new TokenizerME(model);
 			
-				/* note what happens with the "three depending on which model you use */
-			/*String[] tokens = tokenizer.tokenize
-					(  "A ranger journeying with Oglethorpe, founder of the Georgia Colony, " 
-							+ " mentions \"three Mounts raised by the Indians over three of their Great Kings" 
-							+ " who were killed in the Wars.\"" );
-							
-			for( String token : tokens )
-				{
-					System.out.println( token );
-				}
-			*/
-			
 			String cadena;
-			/*
-			FileInputStream fichero = new FileInputStream("eval-data/en-sent.eval");
-			BufferedInputStream b = new BufferedInputStream(fichero);
-			cadena = b.read();
-			String[] tokens = tokenizer.tokenize ( cadena  );
-			*/
+			String nombre_fichero;
+			
+			InputStreamReader isr = new InputStreamReader(System.in);
+			BufferedReader buff =new BufferedReader (isr);
+			System.out.println("Introduce el nombre del fichero: ");
+			nombre_fichero = buff.readLine();	// recogemos el nombre del fichero
 			
 			// apartura del fichero
-			fichero = new File("ficheros_pruebas/prueba1.txt");
+			fichero = new File("ficheros_pruebas/" + nombre_fichero);
 			fr = new FileReader(fichero);
 			br = new BufferedReader(fr);
 			
@@ -111,5 +99,25 @@ public class TokenizerMain
 			}
 		}
 		System.out.println( "\n-----\ndone" );
+		System.out.println( "La salida se encuentra almacenada en el fichero :=> ficheros_pruebas/salida.txt " );
 	}
 }
+
+/* note what happens with the "three depending on which model you use */
+/*String[] tokens = tokenizer.tokenize
+	(  "A ranger journeying with Oglethorpe, founder of the Georgia Colony, " 
+			+ " mentions \"three Mounts raised by the Indians over three of their Great Kings" 
+			+ " who were killed in the Wars.\"" );
+			
+for( String token : tokens )
+{
+	System.out.println( token );
+}
+*/
+
+/*
+FileInputStream fichero = new FileInputStream("eval-data/en-sent.eval");
+BufferedInputStream b = new BufferedInputStream(fichero);
+cadena = b.read();
+String[] tokens = tokenizer.tokenize ( cadena  );
+*/
